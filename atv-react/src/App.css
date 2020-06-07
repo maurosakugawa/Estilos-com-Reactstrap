@@ -36,3 +36,30 @@
     transform: rotate(360deg);
   }
 }
+
+.col{
+  border:1px solid black;
+  text-align:center;
+}
+.col-3{
+  border:1px solid red;
+  text-align:center;
+}
+.col-9{
+  border:1px solid blue;
+  text-align:center;
+}
+.col-12{
+  background-color:lightgreen;
+  text-align:center;
+}
+
+.col-xl-2{
+  border:1px solid black;
+  background-color:lightgoldenrodyellow;
+  text-align:center;
+}
+.col{
+  border:1px solid red;
+  text-align:center;
+}
