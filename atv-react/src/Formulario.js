@@ -104,12 +104,11 @@ export default class Formulario extends React.Component {
                     let decoder = new TextDecoder("iso-8859-1");
                     return decoder.decode(buffer);
                 })
-                .then(str => { // console.log(str);
+                .then(str => {
                     let parser = new window.DOMParser()
                     let xml = parser.parseFromString(str, "text/xml");
                     let cidades = xml.getElementsByTagName('cidades')[0]; // Obter a tag cidades
                     let ID = xml.getElementsByTagName('id')[0];
-                    console.log(ID);
                     let lista = [];
                     lista.push(<option size="xs" key='-i' value='' >Selecione a cidade</option>)
                     cidades.childNodes.forEach((obj, index) => {
@@ -124,7 +123,7 @@ export default class Formulario extends React.Component {
         }
     }
 
-    fetchClima = e => { console.log(e.target.value)
+    fetchClima = e => { 
         if (e.target.value !== '') {
             fetch(`http://servicos.cptec.inpe.br/XML/cidade/${e.target.value}/previsao.xml`, { method: 'GET' })
                 .then(response => response.arrayBuffer())
@@ -132,64 +131,40 @@ export default class Formulario extends React.Component {
                     let decoder = new TextDecoder("iso-8859-1");
                     return decoder.decode(buffer);
                 })
-                .then(str => { // console.log(str);
+                .then(str => { 
                     let parser = new window.DOMParser()
                     let xml = parser.parseFromString(str, "text/xml");
-//                     console.log(xml);
                     let cidade = xml.getElementsByTagName('nome')[0].firstChild.textContent;
-                    console.log("cidade "+cidade);
                     let UF = xml.getElementsByTagName('uf')[0].firstChild.textContent;
-                    console.log("UF "+ UF);
                     let diaSearch = this.formatData(xml.getElementsByTagName('atualizacao')[0].firstChild.textContent);
-                    console.log("Dia "+ diaSearch);
                                         
                     let lista = [];
                     lista.push(cidade," - ", UF, "(", diaSearch, ")");
                     this.setState({cidade: lista})
                     
                     let dia0 = this.formatData(xml.getElementsByTagName('previsao')[0].getElementsByTagName('dia')[0].firstChild.nodeValue);
-                    console.log("Hoje "+ dia0);
                     let cond0 = this.getTempo(xml.getElementsByTagName('previsao')[0].getElementsByTagName('tempo')[0].firstChild.nodeValue);
-                    console.log("condhoje "+ cond0);
                     let max0 = xml.getElementsByTagName('previsao')[0].getElementsByTagName('maxima')[0].firstChild.nodeValue;
-                    console.log("max "+ max0);
                     let min0 = xml.getElementsByTagName('previsao')[0].getElementsByTagName('minima')[0].firstChild.nodeValue;
-                    console.log("min "+ min0);   
-                    let iuv0 = xml.getElementsByTagName('previsao')[0].getElementsByTagName('iuv')[0].firstChild.nodeValue;
-                    console.log("iuv "+ iuv0);                       
+                    let iuv0 = xml.getElementsByTagName('previsao')[0].getElementsByTagName('iuv')[0].firstChild.nodeValue;                      
                     
                     let dia1 = this.formatData(xml.getElementsByTagName('previsao')[1].getElementsByTagName('dia')[0].firstChild.nodeValue);
-                    console.log("amanhã "+ dia1);
                     let cond1 = this.getTempo(xml.getElementsByTagName('previsao')[1].getElementsByTagName('tempo')[0].firstChild.nodeValue);
-                    console.log("condAmanhã "+ cond1);
                     let max1 = xml.getElementsByTagName('previsao')[1].getElementsByTagName('maxima')[0].firstChild.nodeValue;
-                    console.log("max "+ max1);
                     let min1 = xml.getElementsByTagName('previsao')[1].getElementsByTagName('minima')[0].firstChild.nodeValue;
-                    console.log("min "+ min1);   
                     let iuv1 = xml.getElementsByTagName('previsao')[1].getElementsByTagName('iuv')[0].firstChild.nodeValue;
-                    console.log("iuv "+ iuv1);   
                     
                     let dia2 = this.formatData(xml.getElementsByTagName('previsao')[2].getElementsByTagName('dia')[0].firstChild.nodeValue);
-                    console.log("Dia2 "+ dia2);
                     let cond2 = this.getTempo(xml.getElementsByTagName('previsao')[2].getElementsByTagName('tempo')[0].firstChild.nodeValue);
-                    console.log("condDia2 "+ cond2);
                     let max2 = xml.getElementsByTagName('previsao')[2].getElementsByTagName('maxima')[0].firstChild.nodeValue;
-                    console.log("max "+ max2);
-                    let min2 = xml.getElementsByTagName('previsao')[2].getElementsByTagName('minima')[0].firstChild.nodeValue;
-                    console.log("min "+ min2);   
+                    let min2 = xml.getElementsByTagName('previsao')[2].getElementsByTagName('minima')[0].firstChild.nodeValue;  
                     let iuv2 = xml.getElementsByTagName('previsao')[2].getElementsByTagName('iuv')[0].firstChild.nodeValue;
-                    console.log("iuv "+ iuv2);   
                     
                     let dia3 = this.formatData(xml.getElementsByTagName('previsao')[3].getElementsByTagName('dia')[0].firstChild.nodeValue);
-                    console.log("Dia3 "+ dia3);
                     let cond3 = this.getTempo(xml.getElementsByTagName('previsao')[3].getElementsByTagName('tempo')[0].firstChild.nodeValue);
-                    console.log("condDia3 "+ cond3);
                     let max3 = xml.getElementsByTagName('previsao')[3].getElementsByTagName('maxima')[0].firstChild.nodeValue;
-                    console.log("max "+ max3);
-                    let min3 = xml.getElementsByTagName('previsao')[3].getElementsByTagName('minima')[0].firstChild.nodeValue;
-                    console.log("min "+ min3);   
-                    let iuv3 = xml.getElementsByTagName('previsao')[3].getElementsByTagName('iuv')[0].firstChild.nodeValue;
-                    console.log("iuv "+ iuv3);                    
+                    let min3 = xml.getElementsByTagName('previsao')[3].getElementsByTagName('minima')[0].firstChild.nodeValue;  
+                    let iuv3 = xml.getElementsByTagName('previsao')[3].getElementsByTagName('iuv')[0].firstChild.nodeValue;                
 
                     let lista1 = [dia0, dia1, dia2, dia3];
                     let listday = [];
